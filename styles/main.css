@@ -1,32 +1,38 @@
-body {
+.board {
   display: flex;
   flex-direction: column;
   margin: 0px;
   margin-top: 10px;
   background-color: purple;
 }
-#welcome {
+
+.welcome {
   background: white;
   text-align: center;
   padding: 40px;
 }
-#xOrO {
+
+.set_markers {
   display: none;
 }
-#game {
+
+.game {
   vertical-align: middle;
   display:flex;
   flex-direction: column;
 }
+
 .board-row {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: center;
 }
-#currentPlayer {
+
+.player {
   width: 150px;
   color: white;
 }
+
 .square {
   display: flex;
   height: 100px;
@@ -36,16 +42,27 @@ body {
   font-size: 70px;
   border: 3px solid purple;
 }
+
 .square:hover {
   background: gold;
 }
-#end {
+
+.game_over {
   padding: 10px;
   border: 5px solid red;
   background: white;
   text-align: center;
   font-size: 70px;
 }
-#end button {
+
+.game_over button {
   font-size: 30px;
+}
+
+.hide {
+    display: none;
+}
+
+.show {
+    display: inline-block;
 }
