@@ -9,7 +9,7 @@ const wins = [
     [6,7,8],
   ];
 
-let squares = [0,1,2,3,4,5,6,7,8];
+let squares;
 let turnNumber;
 let p2Computer;
 let p1Turn;
@@ -19,14 +19,13 @@ let player2;
 newGame();
 
 function newGame(){
+    squares = [0,1,2,3,4,5,6,7,8];
     turnNumber = 1;
     $('.welcome, .set_players').each(function(){
-        $(this).addClass('show');
         $(this).removeClass('hide');
     });
     $('.set_markers, .game, .game_over').each(function(){
         $(this).addClass('hide');
-        $(this).removeClass('show');
     });
 }
 
@@ -34,21 +33,18 @@ function vsComp(p){
     p2Computer = p;
     $('.set_players').each(function() {
         $(this).addClass('hide');
-        $(this).removeClass('show');
     });
     $('.set_markers').each(function(){
-        $(this).addClass('show');
         $(this).removeClass('hide');
     });
 }
 
 function start(isX){
-    $('.welcome', '.set_markers').each(function(){
+    $('.welcome, .set_markers').each(function(){
         $(this).addClass('hide');
-        $(this).removeClass('show');
     });
     $('.game').each(function(){
-        $(this).style.display = 'flex';
+        $(this).removeClass('hide');
     });
     
     if(isX == 'X'){
@@ -64,19 +60,18 @@ function start(isX){
 }
 
 function move(s){
-    if(squares[s] != 'X' && squares[s] != 'O') {
-        squares[s] = p1Turn ? player1 : player2;
-        $(s).innerHTML = p1Turn ? player1 : player2;
+    let squareNumber = s.value;
+    if(squares[squareNumber] != 'X' && squares[squareNumber] != 'O') {
+        squares[squareNumber] = p1Turn ? player1 : player2;
+        s.innerHTML = p1Turn ? player1 : player2;
         p1Turn = !p1Turn;
         turnNumber++;
         let winner = gameWinner(squares);
         if(winner){
             $('.game').each(function(){
                 $(this).addClass('hide');
-                $(this).removeClass('hide');
             });
             $('.game_over').each(function() {
-                $(this).addClass('show');
                 $(this).removeClass('hide');
             });
             $('h1.game_over').innerHTML = 'Game Over: ' + winner + ' won!';
@@ -85,10 +80,8 @@ function move(s){
         } else {
             $('.game').each(function(){
                 $(this).addClass('hide');
-                $(this).removeClass('hide');
             });
             $('.game_over').each(function() {
-                $(this).addClass('show');
                 $(this).removeClass('hide');
             });
             $('h1.game_over').innerHTML ='Game Over: Tied Game!';
@@ -97,8 +90,9 @@ function move(s){
 }
 
 function nextTurn(){
-    $('h2.player').innerHTML = p1Turn ? 'Player 1' : 'Player 2';
-    $('h2.player').style.background = p1Turn ? '#7fff00' : '#ff1493';
+    let playerTitle = $('h2.game:first');
+    playerTitle[0].innerHTML = p1Turn ? 'Player 1' : 'Player 2';
+    playerTitle[0].style.backgroundColor = p1Turn ? '#7fff00' : '#ff1493';
     if(p1Turn == false && p2Computer){
         aiMove(squares);
     }
@@ -159,11 +153,26 @@ function gameWinner(board){
 }
 
 function restart(){
-    for (let i = 0; i < squares.length; i++){
-        $(i).innerHTML = '';
-        squares[i] = i;
-    }
+    $('.square').each(function(){
+        $(this).innerHTML = '';
+    });
     newGame();
 }
-
+$('.player_mode').click(function(){
+    if ($(this).value == 1) {
+        vsComp(true);
+    } else {
+        vsComp(false);
+    }
+});
+$('.markers').click(function(){
+    if ($(this).value == 'X') {
+        start('X');
+    } else {
+        start('O');
+    }
+});
+$('.square').click(function() {
+    move(this);
+});
 $('.restart').click(restart());
