@@ -1,3 +1,4 @@
+"use strict";
 const wins = [
     [0,1,2],
     [0,3,6],
@@ -60,16 +61,13 @@ function start(isX){
 }
 
 function move(s){
-    if(squares[s] != 'X' && squares[s] != 'O') {
+    if (squares[s] != 'X' && squares[s] != 'O') {
         squares[s] = p1Turn ? player1 : player2;
         $('.square[value='+s+']')[0].innerHTML = p1Turn ? player1 : player2;
         p1Turn = !p1Turn;
         turnNumber++;
         let winner = gameWinner(squares);
-        if(winner){
-            $('.game').each(function(){
-                $(this).addClass('hide');
-            });
+        if (winner) {
             $('.game_over').each(function() {
                 $(this).removeClass('hide');
             });
@@ -77,9 +75,6 @@ function move(s){
         } else if (turnNumber < 10) {
             nextTurn();
         } else {
-            $('.game').each(function(){
-                $(this).addClass('hide');
-            });
             $('.game_over').each(function() {
                 $(this).removeClass('hide');
             });
@@ -88,17 +83,17 @@ function move(s){
     }
 }
 
-function nextTurn(){
+function nextTurn() {
     let playerTitle = $('h2.game')[0];
     playerTitle.innerHTML = p1Turn ? 'Player 1' : 'Player 2';
     playerTitle.style.backgroundColor = p1Turn ? '#7fff00' : '#ff1493';
-    if (p1Turn == false && p2Computer){
+    if (p2Computer == "true" && !p1Turn) {
         aiMove(squares);
     }
 }
 
-function openSpaces(board){
-    return board.filter(space => space !== 'X' && space !== 'O' );
+function openSpaces(board) {
+    return board.filter(space => space !== 'X' && space !== 'O');
 }
 
 function getBestScore(board, player, availableSquares, depth) {
@@ -106,15 +101,15 @@ function getBestScore(board, player, availableSquares, depth) {
     let moveScores = [];
     let playerA = player;
     depth = depth + 1;
-    for (let i = 0; i < aSquares.length; i++){
+    for (let i = 0; i < aSquares.length; i++) {
         let currentBoard = board.slice(0);
         let m = aSquares[i];
         currentBoard[m] = playerA;
         let score = 0;
         let winner = gameWinner(currentBoard);
-        if(winner == playerA){
+        if (winner == playerA) {
             score = 10;
-        } else if(winner != null){
+        } else if (winner != null) {
 	        score = 0;
         } else {
             let playerB = (playerA == player1) ? player2 : player1;
@@ -137,30 +132,30 @@ function aiMove(board) {
     move(bestMove);    
 }
 
-function gameWinner(board){
+function gameWinner(board) {
     for (let i = 0; i < wins.length; i++) {
-        if (board[wins[i][0]] && board[wins[i][0]] == board[wins[i][1]] && board[wins[i][0]] == board[wins[i][2]]){
+        if (board[wins[i][0]] && board[wins[i][0]] == board[wins[i][1]] && board[wins[i][0]] == board[wins[i][2]]) {
             return board[wins[i][0]];
         }
     }
-    if(openSpaces(board).length === 0) {
+    if (openSpaces(board).length === 0) {
         return false;
     }
     return null;
 }
 
-function restart(){
-    $('button.square').each(function(){
+function restart() {
+    $('button.square').each(function() {
         this.innerHTML = '';
     });
     newGame();
 }
 
-$('.player_mode').click(function(){
+$('.player_mode').click(function() {
     vsComp(this.value);
 });
 
-$('.markers').click(function(){
+$('.markers').click(function() {
     if (this.value == 'X') {
         start('X');
     } else {
