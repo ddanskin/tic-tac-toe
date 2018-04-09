@@ -74,7 +74,7 @@ function move(s){
             $('.game_over').each(function() {
                 $(this).removeClass('hide');
             });
-            $('h1.game_over').innerHTML = 'Game Over: ' + winner + ' won!';
+            $('h1.game_over')[0].innerHTML = 'Game Over: ' + winner + ' won!';
         } else if (turnNumber < 10) {
             nextTurn();
         } else {
@@ -84,15 +84,15 @@ function move(s){
             $('.game_over').each(function() {
                 $(this).removeClass('hide');
             });
-            $('h1.game_over').innerHTML ='Game Over: Tied Game!';
+            $('h1.game_over')[0].innerHTML ='Game Over: Tied Game!';
         }
     }
 }
 
 function nextTurn(){
-    let playerTitle = $('h2.game:first');
-    playerTitle[0].innerHTML = p1Turn ? 'Player 1' : 'Player 2';
-    playerTitle[0].style.backgroundColor = p1Turn ? '#7fff00' : '#ff1493';
+    let playerTitle = $('h2.game')[0];
+    playerTitle.innerHTML = p1Turn ? 'Player 1' : 'Player 2';
+    playerTitle.style.backgroundColor = p1Turn ? '#7fff00' : '#ff1493';
     if(p1Turn == false && p2Computer){
         aiMove(squares);
     }
@@ -137,7 +137,6 @@ function aiMove(board) {
     let bestMove = getBestScore(testBoard, player2, openS, depth).m;
   
     move(bestMove);    
-      
 }
 
 function gameWinner(board){
@@ -153,26 +152,32 @@ function gameWinner(board){
 }
 
 function restart(){
-    $('.square').each(function(){
-        $(this).innerHTML = '';
+    $('button.square').each(function(){
+        this.innerHTML = '';
     });
     newGame();
 }
+
 $('.player_mode').click(function(){
-    if ($(this).value == 1) {
+    if (this.value == 1) {
         vsComp(true);
     } else {
         vsComp(false);
     }
 });
+
 $('.markers').click(function(){
-    if ($(this).value == 'X') {
+    if (this.value == 'X') {
         start('X');
     } else {
         start('O');
     }
 });
+
 $('.square').click(function() {
     move(this);
 });
-$('.restart').click(restart());
+
+$('.restart').click(function() {
+    restart();
+});
