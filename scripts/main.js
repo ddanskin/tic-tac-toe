@@ -60,10 +60,9 @@ function start(isX){
 }
 
 function move(s){
-    let squareNumber = s.value;
-    if(squares[squareNumber] != 'X' && squares[squareNumber] != 'O') {
-        squares[squareNumber] = p1Turn ? player1 : player2;
-        s.innerHTML = p1Turn ? player1 : player2;
+    if(squares[s] != 'X' && squares[s] != 'O') {
+        squares[s] = p1Turn ? player1 : player2;
+        $('.square[value='+s+']')[0].innerHTML = p1Turn ? player1 : player2;
         p1Turn = !p1Turn;
         turnNumber++;
         let winner = gameWinner(squares);
@@ -93,7 +92,7 @@ function nextTurn(){
     let playerTitle = $('h2.game')[0];
     playerTitle.innerHTML = p1Turn ? 'Player 1' : 'Player 2';
     playerTitle.style.backgroundColor = p1Turn ? '#7fff00' : '#ff1493';
-    if(p1Turn == false && p2Computer){
+    if (p1Turn == false && p2Computer){
         aiMove(squares);
     }
 }
@@ -135,7 +134,6 @@ function aiMove(board) {
     let openS = openSpaces(board);
     let depth = 0;
     let bestMove = getBestScore(testBoard, player2, openS, depth).m;
-  
     move(bestMove);    
 }
 
@@ -159,11 +157,7 @@ function restart(){
 }
 
 $('.player_mode').click(function(){
-    if (this.value == 1) {
-        vsComp(true);
-    } else {
-        vsComp(false);
-    }
+    vsComp(this.value);
 });
 
 $('.markers').click(function(){
@@ -175,7 +169,7 @@ $('.markers').click(function(){
 });
 
 $('.square').click(function() {
-    move(this);
+    move(this.value);
 });
 
 $('.restart').click(function() {
