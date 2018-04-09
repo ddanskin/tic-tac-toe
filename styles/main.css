@@ -1,21 +1,44 @@
+body {
+    margin: 0;
+    background-color: purple;
+}
+.container{
+    display: flex;
+    margin: 0;
+    width: 90vw;
+}
 .board {
     display: flex;
     flex-direction: column;
-    margin: 0px;
+    justify-content: center;
     margin-top: 10px;
-    background-color: purple;
+    width: 100%;
 }
 
 .welcome {
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    justify-content: center;
     background: white;
+}
+
+.set_players {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     text-align: center;
-    padding: 40px;
+}
+
+.set_markers {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .game {
-    display:flex;
+    display: flex;
     flex-direction: column;
-    vertical-align: middle;
 }
 
 .board-row {
@@ -24,21 +47,14 @@
     justify-content: center;
 }
 
-.player {
-    display: flex;
-    width: 150px;
-    color: white;
-}
-
 .square {
-    display: flex;
-    height: 100px;
-    width: 100px;
+    height: 15vw;
+    width: 15vw;
     outline: none;
     background: white;
     text-align: center;
-    font-size: 70px;
     border: 3px solid purple;
+    font-size: 3em;
 }
 
 .square:hover {
@@ -48,16 +64,17 @@
 .game_over {
     display: flex;
     flex-direction: column;
-    padding: 10px;
-    border: 5px solid red;
-    background: white;
+    align-self: center;
     text-align: center;
-    font-size: 3em;
+}
+
+.game_over h1 {
+    font-size: 1em;
+    margin: 1vw;
 }
 
 .game_over button {
-    text-align: center;
-    font-size: 1.5em;
+    font-size: 0.5em;
 }
 
 .hide {
