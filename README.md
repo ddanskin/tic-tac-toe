@@ -1,7 +1,7 @@
 # tic-tac-toe
 
 # Project Title
-Tic-Tac-Toe
+[Tic-Tac-Toe](https://ddanskin.github.io/tic-tac-toe/)
 
 # Motivation
 This game is based on the classic two player game, Tic-Tac-Toe.
