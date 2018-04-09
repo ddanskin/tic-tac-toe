@@ -47,15 +47,17 @@
 
 .game_over {
     display: flex;
+    flex-direction: column;
     padding: 10px;
     border: 5px solid red;
     background: white;
     text-align: center;
-    font-size: 70px;
+    font-size: 3em;
 }
 
 .game_over button {
-    font-size: 30px;
+    text-align: center;
+    font-size: 1.5em;
 }
 
 .hide {
